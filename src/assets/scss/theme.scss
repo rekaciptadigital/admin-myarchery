@@ -23,6 +23,29 @@ body {
   * {
     outline: none;
   }
+
+  &[data-layout="horizontal"] {
+    #layout-wrapper {
+      min-height: 100vh;
+    }
+  
+    .page-content {
+      margin-top: 0;
+      padding-top: $grid-gutter-width;
+      padding-bottom: $grid-gutter-width;
+    }
+  }
+}
+
+.footer {
+  position: static;
+  padding: 20px 12px;
+  height: 60px;
+  background-color: #f2f2f5;
+}
+
+.topnav {
+  position: static;
 }
 
 #sidebar-menu {

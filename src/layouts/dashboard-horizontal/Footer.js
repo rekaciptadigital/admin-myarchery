@@ -1,23 +1,19 @@
-import React from "react"
-import { Container, Row, Col } from "reactstrap"
+import React from "react";
+import { Container, Row, Col } from "reactstrap";
 
-const Footer = () => {
+function FooterPushedToBottom() {
   return (
-    <React.Fragment>
-      <footer className="footer">
-        <Container fluid={true}>
-          <Row>
-            <Col md={6}>{new Date().getFullYear()} © MyArchery.</Col>
-            <Col md={6}>
-              <div className="text-sm-end d-none d-sm-block">
-                Design & Develop by RCD
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </footer>
-    </React.Fragment>
-  )
+    <footer className="footer mt-auto">
+      <Container fluid>
+        <Row>
+          <Col sm={6}>{new Date().getFullYear()} &copy; MyArchery.</Col>
+          <Col sm={6}>
+            <div className="text-sm-end d-none d-sm-block">Design &amp; Develop by RCD</div>
+          </Col>
+        </Row>
+      </Container>
+    </footer>
+  );
 }
 
-export default Footer
+export default FooterPushedToBottom;

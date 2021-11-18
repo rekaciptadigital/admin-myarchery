@@ -60,7 +60,7 @@ class Layout extends Component {
           </div>
         </div>
 
-        <div id="layout-wrapper">
+        <div id="layout-wrapper" className="d-flex flex-column">
           <Header
             theme={this.props.topbarTheme}
             isMenuOpened={this.state.isMenuOpened}

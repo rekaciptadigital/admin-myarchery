@@ -4,10 +4,7 @@ export default {
   getForEditor(qs = null) {
     return API.get("/web/v1/event-certificate-templates/", qs);
   },
-  create(data = null, qs = null) {
-    return API.post("/web/v1/event-certificate-templates", data, qs, true);
-  },
-  saveUpdate(data = null, qs = null) {
-    return API.put("/web/v1/event-certificate-templates/", data, qs, true);
+  save(data = null) {
+    return API.post("/web/v1/event-certificate-templates", data, null, true);
   },
 };

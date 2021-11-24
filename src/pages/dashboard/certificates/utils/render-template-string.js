@@ -30,9 +30,14 @@ function renderTemplateString(editorData) {
         position: absolute;
         right: 20px;
         bottom: 20px;
-        width: 30mm;
-        height: 30mm;
+        padding: 2.5mm;
+        width: 25mm;
+        height: 25mm;
         background-color: white;
+      }
+
+      .qr-code-img {
+        margin: 0;
       }
 
       ${renderCssField("member_name", editorData.fields[0])}
@@ -45,6 +50,7 @@ function renderTemplateString(editorData) {
     ${renderFieldText("member_name")}
     ${editorData.typeCertificate === 2 ? renderFieldText("peringkat_name") : ""}
     ${renderFieldText("kategori_name")}
+    ${renderQrCode()}
   </body>
 </html>`;
 }
@@ -77,6 +83,21 @@ function renderCssField(name, data = {}) {
 function renderFieldText(name) {
   const placeholderString = `{%${name}%}`;
   return `<div class="field-text" id="field-${name}">${placeholderString}</div>`;
+}
+
+function renderQrCode() {
+  const urlPlaceholder = "{%sertif_verif_url%}";
+  return `
+    <div class="qr-code-container">
+      <barcode
+        class="qr-code-img"
+        code="${urlPlaceholder}"
+        type="QR"
+        error="M"
+        class="barcode"
+        size="1"
+        disableborder="1" />
+    </div>`;
 }
 
 export { renderTemplateString };

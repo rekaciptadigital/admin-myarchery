@@ -142,7 +142,9 @@ function CardEvent(props) {
                                 </div>
                                 <label style={{color:"green"}}>{props.detail.totalParticipant} peserta terdaftar</label>
                             </div>
-                                <Button disabled color="primary">Manage Event</Button>
+                                <Button tag="a" color="primary" href={`/dashboard/event/${props.detail.event.id}/home`}>
+                                    Manage Event
+                                </Button>
                             </div>
                         </Col>
                     </Row>

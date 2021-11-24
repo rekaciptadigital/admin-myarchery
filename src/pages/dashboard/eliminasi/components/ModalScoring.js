@@ -29,6 +29,10 @@ const computeTotalPoints = (data) => {
   return data?.shot.reduce((prev, rambahan) => prev + rambahan.point, 0);
 };
 
+const computeTotalScores = (data) => {
+  return data?.shot.reduce((prev, rambahan) => prev + rambahan.total, 0);
+};
+
 export default function ModalScoring({
   data: { scoringData: initialScoringData, ...contextDetails },
   modalControl,
@@ -162,7 +166,10 @@ export default function ModalScoring({
                 <h6 className="text-center mb-3">{computeClubName(initialScoringData[0])}</h6>
 
                 {computeScoringTypeId(initialScoringData) === 1 && (
-                  <PointsDisplay point={computeTotalPoints(modalScoringData[0])} />
+                  <PointsDisplay scoringType={1} point={computeTotalPoints(modalScoringData[0])} />
+                )}
+                {computeScoringTypeId(initialScoringData) === 2 && (
+                  <PointsDisplay scoringType={2} point={computeTotalScores(modalScoringData[0])} />
                 )}
 
                 <ScoringGrid
@@ -177,7 +184,10 @@ export default function ModalScoring({
                 <h6 className="text-center mb-3">{computeClubName(initialScoringData[1])}</h6>
 
                 {computeScoringTypeId(initialScoringData) === 1 && (
-                  <PointsDisplay point={computeTotalPoints(modalScoringData[1])} />
+                  <PointsDisplay scoringType={1} point={computeTotalPoints(modalScoringData[1])} />
+                )}
+                {computeScoringTypeId(initialScoringData) === 2 && (
+                  <PointsDisplay scoringType={2} point={computeTotalScores(modalScoringData[1])} />
                 )}
 
                 <ScoringGrid
@@ -189,6 +199,7 @@ export default function ModalScoring({
             </Row>
 
             <SweetAlert
+              title=""
               show={alertSavePermanent}
               custom
               btnSize="md"
@@ -240,10 +251,13 @@ export default function ModalScoring({
   );
 }
 
-function PointsDisplay({ point = 0 }) {
+function PointsDisplay({ scoringType, point = 0 }) {
   return (
     <StyledPointsDisplay className="mt-4 mb-4">
-      <span className="label-point">point</span>
+      <span className="label-point">
+        {scoringType === 1 && "point"}
+        {scoringType === 2 && "skor"}
+      </span>
       <span>{point}</span>
     </StyledPointsDisplay>
   );

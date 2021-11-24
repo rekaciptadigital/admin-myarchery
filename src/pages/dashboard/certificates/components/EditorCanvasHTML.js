@@ -1,7 +1,7 @@
 import * as React from "react";
+import styled from "styled-components";
 import EditorFieldText from "./EditorFieldText";
-// TODO: pakai nanti ketika QR ready
-// import QrCodeField from "./QrCodeField";
+import QrCodeField from "./QrCodeField";
 
 export default function EditorCanvasHTML({ data, currentObject, onChange, onSelect }) {
   const { backgroundImage, backgroundUrl, backgroundPreviewUrl, fields } = data;
@@ -23,39 +23,14 @@ export default function EditorCanvasHTML({ data, currentObject, onChange, onSele
   };
 
   return (
-    <div
-      ref={containerDiv}
-      style={{
-        position: "relative",
-        height: 0,
-        paddingBottom: `${100 * (908 / 1280)}%`,
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "relative",
-          width: 1280,
-          height: 908,
-          backgroundColor: "white",
-          backgroundImage: `url(${getBackgroundImage()})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          transform: `scale(${containerDiv.current?.offsetWidth / 1280})`,
-          transformOrigin: "top left",
-        }}
+    <EditorCanvasContainer ref={containerDiv} ratio={908 / 1280}>
+      <EditorBackground
+        width={1280}
+        height={908}
+        backgroundImage={getBackgroundImage()}
+        scale={containerDiv.current?.offsetWidth / 1280}
       >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-          onClick={() => handleDeselectField()}
-        />
+        <DeselectClickArea onClick={() => handleDeselectField()} />
 
         {fields?.length ? (
           fields.map((field) => {
@@ -77,8 +52,36 @@ export default function EditorCanvasHTML({ data, currentObject, onChange, onSele
           <div>Ada error pada data editor</div>
         )}
 
-        {/* <QrCodeField /> */}
-      </div>
-    </div>
+        <QrCodeField />
+      </EditorBackground>
+    </EditorCanvasContainer>
   );
 }
+
+const EditorCanvasContainer = styled.div`
+  position: relative;
+  height: 0;
+  padding-bottom: ${({ ratio }) => 100 * ratio}%;
+  overflow: hidden;
+`;
+
+const EditorBackground = styled.div`
+  position: relative;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+  background-color: white;
+  background-image: url(${({ backgroundImage }) => backgroundImage});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transform: scale(${({ scale }) => scale});
+  transform-origin: top left;
+`;
+
+const DeselectClickArea = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;

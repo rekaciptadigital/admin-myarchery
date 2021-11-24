@@ -1,7 +1,7 @@
 import * as React from "react";
+import styled from "styled-components";
 import PreviewFieldText from "./PreviewFieldText";
-// TODO: pakai nanti ketika QR ready
-// import QrCodeField from "../QrCodeField";
+import QrCodeField from "../QrCodeField";
 
 export default function PreviewCanvas({ data }) {
   const { backgroundImage, backgroundUrl, backgroundPreviewUrl, fields } = data;
@@ -10,39 +10,13 @@ export default function PreviewCanvas({ data }) {
   const getBackgroundImage = () => backgroundUrl || backgroundPreviewUrl || backgroundImage;
 
   return (
-    <div
-      ref={containerDiv}
-      style={{
-        position: "relative",
-        height: 0,
-        paddingBottom: `${100 * (908 / 1280)}%`,
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "relative",
-          width: 1280,
-          height: 908,
-          backgroundColor: "white",
-          backgroundImage: `url(${getBackgroundImage()})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          transform: `scale(${containerDiv.current?.offsetWidth / 1280})`,
-          transformOrigin: "top left",
-        }}
+    <PreviewCanvasContainer ref={containerDiv} ratio={908 / 1280}>
+      <PreviewImage
+        width={1280}
+        height={908}
+        backgroundImage={getBackgroundImage()}
+        scale={containerDiv.current?.offsetWidth / 1280}
       >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-        />
-
         {fields?.length ? (
           fields.map((field) => {
             if (field.name === "peringkat_name" && data.typeCertificate !== 2) {
@@ -54,8 +28,39 @@ export default function PreviewCanvas({ data }) {
           <div>Ada error pada data editor</div>
         )}
 
-        {/* <QrCodeField preview /> */}
-      </div>
-    </div>
+        <QrCodeField preview />
+      </PreviewImage>
+
+      <PreviewBlocker />
+    </PreviewCanvasContainer>
   );
 }
+
+const PreviewCanvasContainer = styled.div`
+  position: relative;
+  height: 0;
+  padding-bottom: ${({ ratio }) => 100 * ratio}%;
+  overflow: hidden;
+`;
+
+const PreviewImage = styled.div`
+  position: relative;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+  background-color: white;
+  background-image: url(${({ backgroundImage }) => backgroundImage});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transform: scale(${({ scale }) => scale});
+  transform-origin: top left;
+`;
+
+const PreviewBlocker = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+`;

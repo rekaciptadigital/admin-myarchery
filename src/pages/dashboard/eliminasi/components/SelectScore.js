@@ -20,7 +20,7 @@ const scoreOptions = [
 ];
 
 const getOptionFromValue = (value) => {
-  return scoreOptions.find((option) => option.value === value);
+  return scoreOptions.find((option) => option.value === value) || { value: "m", label: "M" };
 };
 
 export default function SelectScore({ nomor, value, onChange: notifyValueToParent }) {
@@ -51,7 +51,13 @@ export default function SelectScore({ nomor, value, onChange: notifyValueToParen
   }
 
   return (
-    <Button outline color="primary" type="button" onClick={() => openSelect()}>
+    <Button
+      outline
+      color="primary"
+      type="button"
+      onClick={() => openSelect()}
+      onFocus={() => openSelect()}
+    >
       {getOptionFromValue(value)?.label || "M"}
     </Button>
   );

@@ -27,7 +27,7 @@ const dashboardRoutes = [
   { path: "/dashboard/result/bagan", component: Bagan },
   { path: "/dashboard/result/edit", component: EditResult },
   { path: "/dashboard/schedule/:event_id", component: ListSchedule },
-  { path: "/dashboard/eliminasi/:event_id", component: Eliminasi},
+  { path: "/dashboard/eliminasi/:event_id", component: Eliminasi },
 
   // this route should be at the end of all other routes
   { path: "/dashboard/events/new", component: EventsNew },

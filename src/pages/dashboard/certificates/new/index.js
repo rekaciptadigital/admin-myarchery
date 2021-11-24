@@ -140,28 +140,16 @@ export default function CertificateNew() {
     const queryString = { event_id, type_certificate: currentCertificateType };
     const data = await prepareSaveData(editorData, queryString);
 
-    if (!editorData.certificateId) {
-      const result = await CertificateService.create(data);
-      if (result.success || result.data) {
-        const editorDataCreated = JSON.parse(result.data.editorData);
-        setEditorData((editorData) => ({
-          ...editorData,
-          ...editorDataCreated,
-          certificateId: result.data.id,
-        }));
-      }
-      setCurrentCertificateType(ev.value);
-    } else {
-      const result = await CertificateService.saveUpdate(data, queryString);
-      if (result.success) {
-        const editorDataSaved = result?.data ? JSON.parse(result.data.editorData) : {};
-        setEditorData((editorData) => ({
-          ...editorData,
-          ...editorDataSaved,
-        }));
-      }
-      setCurrentCertificateType(ev.value);
+    const result = await CertificateService.save(data);
+    if (result.success || result.data) {
+      const editorDataCreated = JSON.parse(result.data.editorData);
+      setEditorData((editorData) => ({
+        ...editorData,
+        ...editorDataCreated,
+        certificateId: result.data.id,
+      }));
     }
+    setCurrentCertificateType(ev.value);
     setStatus("done");
     setCurrentObject(null);
   };
@@ -234,26 +222,16 @@ export default function CertificateNew() {
     const queryString = { event_id, type_certificate: currentCertificateType };
     const data = await prepareSaveData(editorData, queryString);
 
-    if (!editorData.certificateId) {
-      const result = await CertificateService.create(data);
-      if (result.success || result.data) {
-        const editorDataSaved = JSON.parse(result.data.editorData);
-        setEditorData((editorData) => ({
-          ...editorData,
-          ...editorDataSaved,
-          certificateId: result.data.id,
-        }));
-      }
-    } else {
-      const result = await CertificateService.saveUpdate(data, queryString);
-      if (result.success) {
-        const editorDataSaved = result?.data ? JSON.parse(result.data.editorData) : {};
-        setEditorData((editorData) => ({
-          ...editorData,
-          ...editorDataSaved,
-        }));
-      }
+    const result = await CertificateService.save(data);
+    if (result.data) {
+      const editorDataSaved = JSON.parse(result.data.editorData);
+      setEditorData((editorData) => ({
+        ...editorData,
+        ...editorDataSaved,
+        certificateId: result.data.id,
+      }));
     }
+
     setStatus("done");
   };
 

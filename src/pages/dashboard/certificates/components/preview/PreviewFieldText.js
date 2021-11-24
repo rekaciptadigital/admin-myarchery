@@ -1,9 +1,10 @@
 import * as React from "react";
+import styled from "styled-components";
 
 const previewTexts = {
-  member_name: "Michaelangelo",
-  peringkat_name: "Peserta Lomba",
-  kategori_name: "Barebow 50m",
+  member_name: "Morgan Lundin",
+  peringkat_name: "Juara 1",
+  kategori_name: "Individu - Umum - Barebow - 50mm",
 };
 
 export default function PreviewFieldText({ name, data = {} }) {
@@ -17,20 +18,27 @@ export default function PreviewFieldText({ name, data = {} }) {
   }, []);
 
   return (
-    <div
+    <FieldTextContainer
       ref={divRef}
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 1280 / 2 - currentOffsetWidth / 2 || 0,
-        fontSize: fontSize || 60,
-        color: color || undefined,
-        transform: `translate(0px, ${y}px)`,
-        fontFamily: fontFamily || undefined,
-        fontWeight: fontWeight || "normal",
-      }}
+      left={1280 / 2 - currentOffsetWidth / 2 || 0}
+      fontSize={fontSize}
+      color={color}
+      y={y}
+      fontFamily={fontFamily}
+      fontWeight={fontWeight}
     >
       {placeholderString}
-    </div>
+    </FieldTextContainer>
   );
 }
+
+const FieldTextContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: ${({ left }) => left}px;
+  font-size: ${({ fontSize }) => fontSize || 60}px;
+  ${({ color }) => (color ? `color: ${color};` : "")}
+  transform: translate(0px, ${({ y }) => y}px);
+  ${({ fontFamily }) => (fontFamily ? `font-family: ${fontFamily};` : "")}
+  font-weight: ${({ fontWeight }) => fontWeight || "normal"};
+`;

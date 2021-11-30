@@ -463,3 +463,26 @@ div[class*=" col"] {
     }
   }
 }
+
+.event-editor {
+  height: calc(100vh - (#{$header-height} + 63px + #{$footer-height}) + #{$grid-gutter-width} / 2);
+
+  .content-scrollable {
+    position: relative;
+
+    .content-scrollable-inner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      overflow-y: auto;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}

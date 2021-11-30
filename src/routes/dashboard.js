@@ -3,6 +3,7 @@ import EventsNewFullday from "pages/dashboard/events/new/fullday";
 import EventsNewMarathon from "pages/dashboard/events/new/marathon";
 import ScoringNew from "pages/dashboard/scoring/new";
 import Dashboard from "../pages/dashboard";
+import EventDetailHome from "../pages/dashboard/events/home";
 import EventDetailPertandingan from "../pages/dashboard/events/pertandingan";
 import ListCategory from "../pages/dashboard/category";
 import ListEvent from "../pages/dashboard/events";
@@ -18,6 +19,7 @@ import Eliminasi from "../pages/dashboard/eliminasi";
 const dashboardRoutes = [
   { path: "/dashboard", component: Dashboard },
   { path: "/dashboard/events", component: ListEvent },
+  { path: "/dashboard/event/:event_id/home", component: EventDetailHome },
   { path: "/dashboard/event/:event_id/pertandingan", component: EventDetailPertandingan },
   { path: "/dashboard/member/:event_id", component: ListMember },
   { path: "/dashboard/category", component: ListCategory },

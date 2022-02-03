@@ -41,8 +41,7 @@ function PageEventDetailHome() {
     if (!isQualificationSchedulesSet) {
       return `/dashboard/events/new/prepublish?eventId=${event_id}`;
     }
-    // TODO: ke page manage jadwal & skor yang sebenernya
-    return "#";
+    return `/dashboard/event/${event_id}/scheduling-scoring`;
   };
 
   React.useEffect(() => {
@@ -106,7 +105,7 @@ function PageEventDetailHome() {
               />
               <CardMenu
                 menu={eventMenus[3]}
-                href={computeHrefScheduleMenu}
+                href={computeHrefScheduleMenu()}
                 disabled={!isEventPublished}
                 badge={
                   !isQualificationSchedulesSet && (

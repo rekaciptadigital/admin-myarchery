@@ -8,6 +8,7 @@ import ScoringNew from "pages/dashboard/scoring/new";
 import Dashboard from "../pages/dashboard";
 import PageEventDetailHome from "../pages/dashboard/events/home";
 import PageEventDetailManage from "../pages/dashboard/events/manage";
+import PageEventDetailSchedulingScoring from "pages/dashboard/events/scheduling-scoring";
 import ListCategory from "../pages/dashboard/category";
 import ListEvent from "../pages/dashboard/events";
 import EventsNew from "../pages/dashboard/events/new";
@@ -24,6 +25,10 @@ const dashboardRoutes = [
   { path: "/dashboard/events", component: ListEvent },
   { path: "/dashboard/event/:event_id/home", component: PageEventDetailHome },
   { path: "/dashboard/event/:event_id/manage", component: PageEventDetailManage },
+  {
+    path: "/dashboard/event/:event_id/scheduling-scoring",
+    component: PageEventDetailSchedulingScoring,
+  },
   { path: "/dashboard/member/:event_id", component: ListMember },
   { path: "/dashboard/category", component: ListCategory },
   { path: "/dashboard/scoring", component: ListScoring },

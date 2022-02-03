@@ -13,7 +13,7 @@ const ButtonWrapper = styled.button`
     box-shadow: none;
     background-color: var(--button-bg-color, var(--ma-gray-100));
 
-    color: var(--button-font-color, var(--ma-txt-black));
+    color: var(--button-font-color, var(--ma-blue));
     text-decoration: none;
     line-height: 1.5;
     font-weight: 400;

@@ -1,6 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 import { useScoringMembers } from "../../hooks/scoring-members";
+import { EventsService } from "services";
+import { AlertSubmitError } from "components/ma";
 
 import { Row, Col } from "reactstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
@@ -103,7 +105,7 @@ function MemberTable({ categoryDetail, searchName, eventId, isTeam, paymentStatu
             <tr>
               <th>No.</th>
               <th className="name">Nama Peserta</th>
-              {!eventDetail.withContingent ? <th className="name">Nama Klub</th> : <th className="name">Kontingen</th>}
+              <th className="name">{!eventDetail.withContingent ? 'Nama Klub' : 'Kontingen'}</th>
               <th className="name">Email</th>
               <th className="name">Telepon</th>
               <th className="name">Status Pembayaran</th>

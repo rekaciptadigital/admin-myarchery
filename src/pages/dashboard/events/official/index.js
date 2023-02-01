@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { MetaTags } from "react-meta-tags";
 // import { SearchBox } from "./components/search-box";
 
+import { EventsService } from "services";
 import { useParams } from "react-router-dom";
 import { Container, Col, Row } from "reactstrap";
 import { SubNavbar } from "../components/submenus-settings";
@@ -19,6 +20,8 @@ const filterPayment = [
 ];
 
 function PageEventOfficial() {
+  const [eventDetail, setEventDetail] = React.useState(null);
+
   const { event_id } = useParams();
   const eventId = event_id;
 
@@ -27,12 +30,23 @@ function PageEventOfficial() {
 
   const {
     data: officialMembers
-} = useOfficialMembers(eventId, filter);
+  } = useOfficialMembers(eventId, filter);
+
+  React.useEffect(() => {
+    const getEventDetail = async () => {
+      const result = await EventsService.getEventDetailById({ id: event_id });
+      if (result.success) {
+        setEventDetail(result.data);
+      }
+    };
+
+    getEventDetail();
+  }, []);
 
   return (
     <React.Fragment>
         <SubNavbar eventId={event_id} />
-        
+
         <MetaTags>
                 <title>Dashboard | Official</title>
         </MetaTags>
@@ -64,7 +78,7 @@ function PageEventOfficial() {
               </CategoryFilter>
               </FilterBars>
               </ToolbarTop>
-             
+
             <ToolbarRight>
                 <HorizontalSpaced>
                     <Row>
@@ -90,12 +104,12 @@ function PageEventOfficial() {
                 </HorizontalSpaced>
             </ToolbarRight>
 
-            <OfficialTable 
+            <OfficialTable
+              eventDetail={eventDetail}
               officialMembers={officialMembers}
             />
              </ViewWrapper>
         </Container>
-    
     </React.Fragment>
   )
 }

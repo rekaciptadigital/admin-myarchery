@@ -21,7 +21,7 @@ import IconX from "components/ma/icons/mono/x";
 
 import classnames from "classnames";
 
-function ButtonShowBracket({ categoryDetailId, eliminationMemberCount }) {
+function ButtonShowBracket({ categoryDetailId, eliminationMemberCount, eventDetail }) {
   const [isOpen, setOpen] = React.useState(false);
   const {
     data: bracketData,
@@ -87,6 +87,7 @@ function ButtonShowBracket({ categoryDetailId, eliminationMemberCount }) {
                         rounds={bracketData.rounds || []}
                         renderSeedComponent={(bracketProps) => (
                           <SeedBagan
+                            eventDetail={eventDetail}
                             bracketProps={bracketProps}
                             configs={{
                               totalRounds: bracketData.rounds.length - 1,
@@ -105,6 +106,7 @@ function ButtonShowBracket({ categoryDetailId, eliminationMemberCount }) {
                         rounds={bracketData.rounds || []}
                         renderSeedComponent={(bracketProps) => (
                           <SeedPreview
+                            eventDetail={eventDetail}
                             bracketProps={bracketProps}
                             configs={{
                               totalRounds: bracketData.rounds.length - 1,
@@ -140,7 +142,7 @@ function NoBracketAvailable() {
   );
 }
 
-function SeedPreview({ bracketProps, configs }) {
+function SeedPreview({ bracketProps, configs, eventDetail }) {
   const { roundIndex, seed, breakpoint } = bracketProps;
   const { totalRounds, isTeam } = configs;
   const { isFinalRound, isThirdPlaceRound } = _getRoundPositions({
@@ -190,11 +192,21 @@ function SeedPreview({ bracketProps, configs }) {
                     </BoxName>
 
                     {!isTeam ? (
-                      <BoxName title={team.clubName} className="name-club">
-                        {team.clubName || (
-                          <React.Fragment>&nbsp;</React.Fragment>
-                        )}
-                      </BoxName>
+                      <>
+                        {!eventDetail.withContingent ?
+                          <BoxName title={team.clubName} className="name-club">
+                            {team.clubName || (
+                              <React.Fragment>&nbsp;</React.Fragment>
+                            )}
+                          </BoxName>
+                        :
+                          <BoxName title={team.cityName} className="name-club">
+                            {team.cityName || (
+                              <React.Fragment>&nbsp;</React.Fragment>
+                            )}
+                          </BoxName>
+                        }
+                      </>
                     ) : (
                       <MemberList>
                         {team.teams?.map((member, index) => (
@@ -230,14 +242,13 @@ function SeedPreview({ bracketProps, configs }) {
   );
 }
 
-function SeedBagan({ bracketProps, configs }) {
+function SeedBagan({ bracketProps, configs, eventDetail }) {
   const { roundIndex, seed, breakpoint } = bracketProps;
   const { totalRounds, isTeam } = configs;
   const { isFinalRound, isThirdPlaceRound } = _getRoundPositions({
     totalRounds,
     roundIndex,
   });
-
   return (
     <Seed
       mobileBreakpoint={breakpoint}
@@ -277,9 +288,21 @@ function SeedBagan({ bracketProps, configs }) {
                   </BoxName>
 
                   {!isTeam ? (
-                    <BoxName title={team.club} className="name-club">
-                      {team.club || <React.Fragment>&nbsp;</React.Fragment>}
-                    </BoxName>
+                    <>
+                      {!eventDetail.withContingent ?
+                        <BoxName title={team.club} className="name-club">
+                          {team.club || (
+                            <React.Fragment>&nbsp;</React.Fragment>
+                          )}
+                        </BoxName>
+                      :
+                        <BoxName title={team.cityName} className="name-club">
+                          {team.cityName || (
+                            <React.Fragment>&nbsp;</React.Fragment>
+                          )}
+                        </BoxName>
+                      }
+                    </>
                   ) : (
                     <MemberList>
                       {team.memberTeam?.map((member, index) => (

@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled from "styled-components";
-import { EventsService } from "services";
 import { useScoringMembers } from "../../hooks/scoring-members";
 
 import { Row, Col } from "reactstrap";
@@ -9,7 +8,8 @@ import { SpinnerDotBlock, ButtonBlue, Button, ButtonOutlineBlue } from "componen
 
 import logoUpdate from "assets/images/myachery/update-category.png";
 
-function MemberTable({ categoryDetail, searchName, eventId, isTeam, paymentStatus }) {
+function MemberTable({ categoryDetail, searchName, eventId, isTeam, paymentStatus, eventDetail }) {
+
   const {
     data: scoringMembers,
     isLoading: isLoadingScoringMembers,
@@ -90,7 +90,7 @@ function MemberTable({ categoryDetail, searchName, eventId, isTeam, paymentStatu
             <tr>
               <th>No.</th>
               <th className="name">Nama Peserta</th>
-              <th className="name">Nama Klub</th>
+              {!eventDetail.withContingent ? <th className="name">Nama Klub</th> : <th className="name">Kontingen</th>}
               <th className="name">Email</th>
               <th className="name">Telepon</th>
               <th className="name">Status Pembayaran</th>
@@ -105,7 +105,7 @@ function MemberTable({ categoryDetail, searchName, eventId, isTeam, paymentStatu
                   <td>{index + 1}.</td>
                   <td className="name">{row?.member?.name}</td>
                   <td className="name">
-                    <ClubName>{row?.member?.clubName}</ClubName>
+                    {!eventDetail.withContingent ? <ClubName>{row?.member?.clubName}</ClubName> : <ClubName>{row?.member?.cityName}</ClubName>}
                   </td>
                   <td className="name">
                     <ClubName>{row?.member?.email}</ClubName>

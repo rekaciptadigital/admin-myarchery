@@ -142,6 +142,7 @@ function PageEventScoringElimination() {
             <ButtonShowBracket
               categoryDetailId={activeCategory?.id}
               eliminationMemberCount={activeCategory?.defaultEliminationCount}
+              eventDetail={eventDetail}
             />
           </div>
         }

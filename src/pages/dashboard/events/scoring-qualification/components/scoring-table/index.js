@@ -25,6 +25,7 @@ function ScoringTable({
   eliminationParticipantsCount,
   onChangeParticipantPresence,
   searchName,
+  eventDetail
 }) {
   const { event_id } = useParams();
   const eventId = event_id;
@@ -160,7 +161,7 @@ function ScoringTable({
                   <IconMedal />
                 </th>
                 <th className="name">Nama Peserta</th>
-                <th className="name">Nama Klub</th>
+                {!eventDetail.withContingent ? <th className="name">Nama Klub</th> : <th className="name">Kontingen</th>}
                 <SessionStatsColumnHeadingGroup
                   isSelectionType={isSelectionType}
                   collapsed={isEditorOpen}
@@ -205,10 +206,15 @@ function ScoringTable({
                       )}
                     </td>
                     <td className="name">{row.member.name}</td>
-                    <td className="name">
-                      <ClubName>{row.clubName}</ClubName>
-                    </td>
-
+                    {!eventDetail.withContingent ?
+                      <td className="name">
+                        <ClubName>{row.clubName}</ClubName>
+                      </td>
+                     :
+                      <td className="name">
+                        {row.member.cityName}
+                      </td>
+                     }
                     <SessionStatsCellsGroup
                       collapsed={isEditorOpen}
                       sessions={row.sessions}

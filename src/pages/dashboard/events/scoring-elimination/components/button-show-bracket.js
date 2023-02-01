@@ -20,7 +20,7 @@ import IconMedalBronze from "components/ma/icons/fill/medal-bronze";
 
 import classnames from "classnames";
 
-function ButtonShowBracket({ categoryDetailId, eliminationMemberCount }) {
+function ButtonShowBracket({ categoryDetailId, eliminationMemberCount, eventDetail }) {
   const [isOpen, setOpen] = React.useState(false);
   const {
     data: bracketData,
@@ -86,7 +86,7 @@ function ButtonShowBracket({ categoryDetailId, eliminationMemberCount }) {
                   {bracketData.eliminationId ||
                   bracketData.eliminationGroupId ? (
                     <Scrollable>
-                      <EliminationBracket data={bracketData} />
+                      <EliminationBracket data={bracketData} eventDetail={eventDetail} />
                     </Scrollable>
                   ) : (
                     <NoBracketAvailable />
@@ -109,7 +109,7 @@ function NoBracketAvailable() {
   );
 }
 
-function EliminationBracket({ data }) {
+function EliminationBracket({ data, eventDetail }) {
   const { hasWinner, winnerIndex } = _checkThirdPlaceHasWinner(data);
 
   if (data.eliminationId) {
@@ -127,6 +127,7 @@ function EliminationBracket({ data }) {
                 thirdPlaceHasWinner: hasWinner,
                 thirdPlaceWinnerIndex: winnerIndex,
               }}
+              eventDetail={eventDetail}
             />
           )}
         />
@@ -159,7 +160,7 @@ function EliminationBracket({ data }) {
   return null;
 }
 
-function SeedBagan({ bracketProps, configs }) {
+function SeedBagan({ bracketProps, configs, eventDetail }) {
   const { roundIndex, seed, breakpoint } = bracketProps;
   const {
     totalRounds,
@@ -222,10 +223,22 @@ function SeedBagan({ bracketProps, configs }) {
                     <BoxName title={team.name}>
                       {team.name || <ByeLabel isBye={isBye} />}
                     </BoxName>
-                    {team.club && (
-                      <BoxName title={team.club} className="name-club">
-                        {team.club}
-                      </BoxName>
+                    {!eventDetail.withContingent ? (
+                      <>
+                        {team.club && (
+                          <BoxName title={team.club} className="name-club">
+                            {team.club}
+                          </BoxName>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {team.city && (
+                          <BoxName title={team.city} className="name-club">
+                            {team.city}
+                          </BoxName>
+                        )}
+                      </>
                     )}
                   </BoxNameGroup>
                   <BoxScore team={team} />

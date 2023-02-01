@@ -204,6 +204,7 @@ function PageEventScoringQualification() {
                   <ButtonShowBracket
                     categoryDetailId={activeCategory?.id}
                     eliminationMemberCount={activeCategory?.defaultEliminationCount}
+                    eventDetail={eventDetail}
                   />
                 </PushBottom>
               </HorizontalSpaced>
@@ -274,6 +275,7 @@ function PageEventScoringQualification() {
               searchName={inputSearchQuery}
               onChangeParticipantPresence={resetOnChangeCategory}
               eliminationParticipantsCount={activeCategory?.defaultEliminationCount}
+              eventDetail={eventDetail}
             />
           ) : (
             <ScoringTableTeam
@@ -283,6 +285,7 @@ function PageEventScoringQualification() {
               searchName={inputSearchQuery}
               onChangeParticipantPresence={resetOnChangeCategory}
               eliminationParticipantsCount={activeCategory?.defaultEliminationCount}
+              eventDetail={eventDetail}
             />
           ))}
       </ViewWrapper>

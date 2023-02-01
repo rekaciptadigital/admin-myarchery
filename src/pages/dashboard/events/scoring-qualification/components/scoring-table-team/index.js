@@ -10,6 +10,7 @@ function ScoringTableTeam({
   isLocked,
   eliminationParticipantsCount,
   searchName,
+  eventDetail
 }) {
   // TODO: refaktor param jadi objek konfig
   const {
@@ -39,7 +40,7 @@ function ScoringTableTeam({
             <tr>
               <th>Peringkat</th>
               <th className="name">Nama Tim</th>
-              <th className="name">Klub</th>
+              {!eventDetail.withContingent ? <th className="name">Klub</th> : <th className="name">Kontingen</th>}
               <th className="stats">Total</th>
               <th className="stats">X+10</th>
               <th className="stats">X</th>
@@ -75,9 +76,13 @@ function ScoringTableTeam({
                   </div>
                 </td>
 
-                <td className="name">
-                  <ClubName>{row.clubName || "Club On"}</ClubName>
-                </td>
+                {!eventDetail.withContingent ?
+                  <td className="name">
+                    <ClubName>{row.clubName || "Club On"}</ClubName>
+                  </td>
+                :
+                  <td className="name"> {row.cityName || "City On"}</td>
+                }
                 <td className="stats">{row.total || 0}</td>
                 <td className="stats">{row.totalXPlusTen || 0}</td>
                 <td className="stats">{row.totalX || 0}</td>

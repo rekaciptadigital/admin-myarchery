@@ -2,6 +2,7 @@ import * as React from "react";
 import { MetaTags } from "react-meta-tags";
 import styled from "styled-components";
 import { useParams, useLocation } from "react-router-dom";
+import { EventsService } from "services";
 import { useCategoryDetails } from "./hooks/category-details";
 import { useCategoriesWithFilters } from "./hooks/category-filters";
 import { useMemberDownload } from "./hooks/member-download";
@@ -18,6 +19,8 @@ import classnames from "classnames";
 import { Container } from "reactstrap";
 
 function PageDosQualification() {
+  const [eventDetail, setEventDetail] = React.useState(null);
+
   const { event_id } = useParams();
   const { search } = useLocation();
 
@@ -55,6 +58,17 @@ function PageDosQualification() {
   const resetOnChangeCategory = () => {
     setInputSearchQuery("");
   };
+
+  React.useEffect(() => {
+    const getEventDetail = async () => {
+      const result = await EventsService.getEventDetailById({ id: event_id });
+      if (result.success) {
+        setEventDetail(result.data);
+      }
+    };
+
+    getEventDetail();
+  }, []);
 
   const contentTitle = "Peserta" + (type ? (isTeam ? " Beregu" : " Individu") : "");
   const pageTitle = contentTitle + " | MyArchery.id";
@@ -222,6 +236,7 @@ function PageDosQualification() {
               categoryDetail={activeCategoryDetail}
               searchName={inputSearchQuery}
               paymentStatus={activePaymentStatus}
+              eventDetail={eventDetail}
             />
           </ViewWrapper>
         </Container>

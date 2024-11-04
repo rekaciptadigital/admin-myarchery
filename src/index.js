@@ -8,6 +8,20 @@ import App from "./App"
 import "./i18n"
 import * as serviceWorker from "./serviceWorker"
 import { store } from "./store"
+import 'react-datepicker/dist/react-datepicker.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// In components using react-select
+import Select from 'react-select';
+
+// In components using reactstrap
+import { 
+  Button, 
+  Form, 
+  Input, 
+  Label,
+  // other components... 
+} from 'reactstrap';
 
 let persistor = persistStore(store)
 

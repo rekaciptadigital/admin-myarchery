@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { stringUtil } from "utils";
 import { useWizardView } from "utils/hooks/wizard-view";
@@ -116,7 +116,7 @@ const initialEventData = {
 
 // Komponen utama EventsNewFullday
 const EventsNewFullday = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // State dan fungsi terkait langkah-langkah pembuatan acara
   const {
@@ -220,7 +220,7 @@ const EventsNewFullday = () => {
       setSavingEventStatus({ status: "success", errors: null });
       const eventId = result.data?.id;
       eventId &&
-        history.push(`/dashboard/events/new/prepublish?eventId=${eventId}`);
+        navigate(`/dashboard/events/new/prepublish?eventId=${eventId}`);
     } else {
       setSavingEventStatus({ status: "error", errors: result.errors });
     }
@@ -239,7 +239,7 @@ const EventsNewFullday = () => {
       setSavingEventStatus({ status: "success", errors: null });
       const eventId = result.data?.id;
       eventId &&
-        history.push(`/dashboard/events/new/prepublish?eventId=${eventId}`);
+        navigate(`/dashboard/events/new/prepublish?eventId=${eventId}`);
     } else {
       setSavingEventStatus({ status: "error", errors: result.errors });
     }

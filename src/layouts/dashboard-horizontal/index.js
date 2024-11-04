@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { withRouter } from "react-router-dom"
+import { useNavigate, useLocation, useParams, Navigate } from "react-router-dom"
 
 // Other Layout related Component
 import Navbar from "./Navbar"
@@ -75,4 +75,12 @@ class Layout extends Component {
   }
 }
 
-export default (withRouter(Layout))
+function LayoutWrapper() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
+  
+  return <Layout navigate={navigate} location={location} params={params} />;
+}
+
+export default LayoutWrapper;

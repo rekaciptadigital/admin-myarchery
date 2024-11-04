@@ -1,22 +1,21 @@
 import React, { Component } from "react"
-import { withRouter } from "react-router-dom"
+import { useNavigate, useLocation, useParams } from "react-router-dom"
 
 // Other Layout related Component
 import Navbar from "./Navbar"
 import Header from "./Header"
 import Footer from "./Footer"
 
-class Layout extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isMenuOpened: false,
-    }
-  }
+function Layout(props) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
 
-  componentDidMount() {
+  const [isMenuOpened, setIsMenuOpened] = React.useState(false);
+
+  React.useEffect(() => {
     if (document.body) document.body.setAttribute('data-layout', 'horizontal')
-    if (this.props.isPreloader === true) {
+    if (props.isPreloader === true) {
       document.getElementById("preloader").style.display = "block"
       document.getElementById("status").style.display = "block"
 
@@ -32,48 +31,47 @@ class Layout extends Component {
     // Scrollto 0,0
     window.scrollTo(0, 0)
 
-    const title = this.props.location.pathname
+    const title = location.pathname
     let currentage = title.charAt(1).toUpperCase() + title.slice(2)
 
     document.title =
       currentage + " | Skote - React Admin & Dashboard Template"
-  }
+  }, [location.pathname, props.isPreloader]);
 
   /**
    * Opens the menu - mobile
    */
-  openMenu = () => {
-    this.setState({ isMenuOpened: !this.state.isMenuOpened })
+  const openMenu = () => {
+    setIsMenuOpened(!isMenuOpened)
   }
-  render() {
-    return (
-      <React.Fragment>
-        <div id="preloader">
-          <div id="status">
-            <div className="spinner-chase">
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-            </div>
+
+  return (
+    <React.Fragment>
+      <div id="preloader">
+        <div id="status">
+          <div className="spinner-chase">
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
           </div>
         </div>
+      </div>
 
-        <div id="layout-wrapper">
-          <Header
-            theme={this.props.topbarTheme}
-            isMenuOpened={this.state.isMenuOpened}
-            openLeftMenuCallBack={this.openMenu}
-          />
-          <Navbar menuOpen={this.state.isMenuOpened} />
-          <div className="main-content">{this.props.children}</div>
-          <Footer />
-        </div>
-      </React.Fragment>
-    )
-  }
+      <div id="layout-wrapper">
+        <Header
+          theme={props.topbarTheme}
+          isMenuOpened={isMenuOpened}
+          openLeftMenuCallBack={openMenu}
+        />
+        <Navbar menuOpen={isMenuOpened} />
+        <div className="main-content">{props.children}</div>
+        <Footer />
+      </div>
+    </React.Fragment>
+  )
 }
 
-export default (withRouter(Layout))
+export default Layout;

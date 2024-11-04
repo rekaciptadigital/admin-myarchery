@@ -1,22 +1,16 @@
 import PropTypes from 'prop-types'
 import React, { Component } from "react"
-import { withRouter } from "react-router-dom"
+import { useNavigate, useLocation, useParams, Navigate } from "react-router-dom"
 import "toastr/build/toastr.min.css"
 
-class LandingPageLayout extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-    this.capitalizeFirstLetter.bind(this)
-  }
+function LandingPageLayout() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
 
-  capitalizeFirstLetter = string => {
-    return string.charAt(1).toUpperCase() + string.slice(2)
-  }
+  navigate('/path');
 
-  render() {
-    return <React.Fragment>{this.props.children}</React.Fragment>
-  }
+  return <React.Fragment>{this.props.children}</React.Fragment>
 }
 
 LandingPageLayout.propTypes = {
@@ -24,4 +18,5 @@ LandingPageLayout.propTypes = {
   location: PropTypes.object
 }
 
-export default withRouter(LandingPageLayout)
+export default LandingPageLayout
+

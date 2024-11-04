@@ -11,17 +11,19 @@ import myachery from "assets/images/myachery/logo 3.png"
 import React, { useEffect, useState } from "react"
 import MetaTags from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, Link } from "react-router-dom"
+import { useNavigate, Link, useLocation, useParams, Navigate } from "react-router-dom"
 import { Col, Row, Container, Card, CardBody } from "reactstrap"
 import { AuthenticationService } from "services"
 //Import config
 import * as AuthenticationStore from "store/slice/authentication"
 import toastr from "toastr"
 
-const Login = () => {
+function Login() {
   const dispatch = useDispatch()
   const { isLoggedIn } = useSelector(AuthenticationStore.getAuthenticationStore)
-  let history = useHistory()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
   const [loginErrors, setLoginErrors] = useState()
 
   const handleValidSubmit = async (event, values) => {
@@ -40,7 +42,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      history.push("/dashboard")
+      navigate("/dashboard")
     }
   }, [isLoggedIn])
 

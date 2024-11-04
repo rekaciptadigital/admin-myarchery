@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import * as AuthStore from "store/slice/authentication";
 import { ArcherService } from "services";
@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import user1 from "assets/images/users/avatar-man.png";
 
 const ProfileMenu = (props) => {
-  const { push } = useHistory();
+  const { push } = useNavigate();
   const dispatch = useDispatch();
 
   const [menu, setMenu] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, useLocation, useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as AuthenticationStore from "store/slice/authentication";
 import toastr from "toastr";
@@ -20,9 +20,11 @@ import IconArrowLeft from "components/ma/icons/mono/arrow-left";
 
 import myachery from "assets/images/myachery/logo 3.png";
 
-const Register = () => {
+function Register() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
   const { isLoggedIn } = useSelector(AuthenticationStore.getAuthenticationStore);
   const [screen, setScreen] = React.useState(0);
   const [provinceId, setProvinceId] = React.useState();
@@ -43,7 +45,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      history.push("/dashboard");
+      navigate("/dashboard");
     }
   }, [isLoggedIn]);
 
@@ -278,7 +280,7 @@ const Register = () => {
       </div>
     </React.Fragment>
   );
-};
+}
 
 function _makePayload(formStep1, values) {
   return {

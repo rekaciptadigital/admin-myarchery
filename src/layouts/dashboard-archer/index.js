@@ -1,22 +1,21 @@
 import React, { Component } from "react"
-import { withRouter } from "react-router-dom"
+import { useNavigate, useLocation, useParams } from "react-router-dom"
 
 // Other Layout related Component
 // import Navbar from "./Navbar"
 // import HeaderForm from "../landingpage/HeaderForm"
 import Footer from "./Footer"
 
-class LayoutArcher extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isMenuOpened: false,
-    }
-  }
+function LayoutArcher(props) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
 
-  componentDidMount() {
+  const [isMenuOpened, setIsMenuOpened] = React.useState(false);
+
+  React.useEffect(() => {
     if (document.body) document.body.setAttribute('data-layout', 'horizontal')
-    if (this.props.isPreloader === true) {
+    if (props.isPreloader === true) {
       document.getElementById("preloader").style.display = "block"
       document.getElementById("status").style.display = "block"
 
@@ -32,42 +31,41 @@ class LayoutArcher extends Component {
     // Scrollto 0,0
     window.scrollTo(0, 0)
 
-    // const title = this.props.location.pathname
+    // const title = location.pathname
     // let currentage = title.charAt(1).toUpperCase() + title.slice(2)
     document.title =
       "Dashboard" + " | MyArchery"
-  }
+  }, [props.isPreloader, location.pathname]);
 
   /**
    * Opens the menu - mobile
    */
-  openMenu = () => {
-    this.setState({ isMenuOpened: !this.state.isMenuOpened })
+  const openMenu = () => {
+    setIsMenuOpened(!isMenuOpened)
   }
-  render() {
-    return (
-      <React.Fragment>
-        <div id="preloader">
-          <div id="status">
-            <div className="spinner-chase">
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-            </div>
+
+  return (
+    <React.Fragment>
+      <div id="preloader">
+        <div id="status">
+          <div className="spinner-chase">
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
           </div>
         </div>
+      </div>
 
-        <div id="layout-wrapper">
-          {/* <Navbar menuOpen={this.state.isMenuOpened} /> */}
-          <div className="main-content" style={{minHeight: "calc(100vh - 60px)"}}>{this.props.children}</div>
-          <Footer />
-        </div>
-      </React.Fragment>
-    )
-  }
+      <div id="layout-wrapper">
+        {/* <Navbar menuOpen={isMenuOpened} /> */}
+        <div className="main-content" style={{minHeight: "calc(100vh - 60px)"}}>{props.children}</div>
+        <Footer />
+      </div>
+    </React.Fragment>
+  )
 }
 
-export default (withRouter(LayoutArcher))
+export default LayoutArcher;

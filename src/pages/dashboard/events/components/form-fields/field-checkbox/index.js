@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import RCCheckbox from "rc-checkbox";
+import 'rc-checkbox/assets/index.css';
 
 import "rc-checkbox/assets/index.css";
 

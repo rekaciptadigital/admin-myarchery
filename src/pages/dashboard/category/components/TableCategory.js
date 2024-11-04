@@ -3,11 +3,7 @@ import { Row, Col, Card, CardBody } from "reactstrap"
 
 // datatable related plugins
 import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory, {
-  PaginationProvider, PaginationListStandalone,
-  SizePerPageDropdownStandalone
-} from 'react-bootstrap-table2-paginator';
-
+import paginationFactory, { PaginationProvider, SizePerPageDropdownStandalone, PaginationListStandalone } from 'react-bootstrap-table2-paginator';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 
 // Data for dummy

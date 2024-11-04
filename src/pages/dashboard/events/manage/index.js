@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useWizardView } from "utils/hooks/wizard-view";
 import { eventConfigs, eventCategories } from "constants/index";
 import { eventDataReducer } from "../hooks/create-event-data";
@@ -91,7 +91,7 @@ const initialEventData = {
 };
 
 const PageEventDetailManage = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const { event_id } = useParams();
   const { steps, stepsTotal, currentStep, currentLabel, goToStep, goToPreviousStep, goToNextStep } =
     useWizardView(stepsData);

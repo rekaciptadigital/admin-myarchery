@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
 import { useWizardView } from "utils/hooks/wizard-view";
 
@@ -25,7 +25,7 @@ const stepsList = [
 
 const PageEventDetailSchedulingScoring = () => {
   const { event_id } = useParams();
-  const history = useHistory();
+  const history = useNavigate();
   const location = useLocation();
 
   const eventId = parseInt(event_id);

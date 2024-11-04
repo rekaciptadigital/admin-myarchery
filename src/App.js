@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthLayout } from "./layouts";
 import { AuthenticationMiddleware } from "./middlewares";
 import {
@@ -18,17 +18,30 @@ import { EventDetailProvider } from "contexts/event-detail";
 
 import "./assets/scss/theme.scss";
 import "react-datepicker/dist/react-datepicker.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// In components using react-select
+import Select from 'react-select';
+
+// In components using reactstrap
+import { 
+  Button, 
+  Form, 
+  Input, 
+  Label,
+  // other components... 
+} from 'reactstrap';
 
 const App = () => {
   return (
     <React.Fragment>
       <Router>
         <EventDetailProvider>
-          <Switch>
+          <Routes>
             <AuthenticationMiddleware
               path="/"
               layout={React.Fragment}
-              component={() => <Redirect to="/login" />}
+              element={<Navigate to="/login" replace />}
               isAuthProtected={false}
               exact
             />
@@ -36,7 +49,7 @@ const App = () => {
               <AuthenticationMiddleware
                 path={route.path}
                 layout={AuthLayout}
-                component={route.component}
+                element={<route.component />}
                 key={idx}
                 isAuthProtected={false}
                 exact
@@ -46,7 +59,7 @@ const App = () => {
               <AuthenticationMiddleware
                 path={route.path}
                 layout={LayoutDashboard}
-                component={route.component}
+                element={<route.component />}
                 key={idx}
                 isAuthProtected={true}
                 exact
@@ -56,7 +69,7 @@ const App = () => {
               <AuthenticationMiddleware
                 path={route.path}
                 layout={LayoutDashboard}
-                component={route.component}
+                element={<route.component />}
                 key={idx}
                 isAuthProtected={true}
                 exact
@@ -66,7 +79,7 @@ const App = () => {
               <AuthenticationMiddleware
                 path={route.path}
                 layout={LayoutLiveScores}
-                component={route.component}
+                element={<route.component />}
                 key={idx}
                 isAuthProtected={false}
                 exact
@@ -76,7 +89,7 @@ const App = () => {
               <AuthenticationMiddleware
                 path={route.path}
                 layout={AuthLayout}
-                component={route.component}
+                element={<route.component />}
                 key={idx}
                 isAuthProtected={false}
                 exact
@@ -86,14 +99,14 @@ const App = () => {
               <AuthenticationMiddleware
                 path={route.path}
                 layout={LayoutDashboardDos}
-                component={route.component}
+                element={<route.component />}
                 key={idx}
                 isAuthProtected={false}
                 exact
               />
             ))}
-            <Redirect to="/working/not-found" />
-          </Switch>
+            <Navigate to="/working/not-found" replace />
+          </Routes>
         </EventDetailProvider>
       </Router>
     </React.Fragment>

@@ -1,9 +1,9 @@
-import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 function useRouteQueryParams() {
   const { event_id: param_event_id } = useParams();
   const { pathname, search } = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const queryStrings = new URLSearchParams(search);
   const qs_event_id = queryStrings.get("event_id");
@@ -17,7 +17,7 @@ function useRouteQueryParams() {
   const setParamEventId = (eventId) => {
     queryStrings.set("event_id", eventId);
     const URLWithParams = queryStrings.toString();
-    history.replace(`${pathname}?${URLWithParams}`);
+    navigate(`${pathname}?${URLWithParams}`);
   };
 
   return {

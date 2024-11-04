@@ -1,16 +1,17 @@
 {
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
+    "react-app"
   ],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2021,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true,
-      "modules": true,
-      "experimentalObjectRestSpread": true
+      "jsx": true
+    },
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
     }
   },
   "env": {
@@ -22,7 +23,7 @@
   },
   "settings": {
     "react": {
-      "version": "^17.0.1"
+      "version": "detect"
     }
   },
   "rules": {

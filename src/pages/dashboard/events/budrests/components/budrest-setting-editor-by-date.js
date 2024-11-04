@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useFormBudrestSettings } from "../hooks/form-budrest-settings";
 import { useSubmitBudrestSettings } from "../hooks/submit-budrest-settings";
 import { ButtonDownloadIdCard } from "../hooks/button-download-id-card";
@@ -15,7 +15,7 @@ import { formatServerDate } from "../../new/utils/datetime";
 import { useIdcardDownloadBudrest } from "../hooks/download-idcard-budrest";
 
 function BudrestSettingEditorByDate({ settingsByDate }) {
-  const history = useHistory();
+  const history = useNavigate();
   const { event_id } = useParams();
   const eventId = parseInt(event_id);
 

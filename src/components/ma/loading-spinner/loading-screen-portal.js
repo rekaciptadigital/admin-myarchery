@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import styled from "styled-components";
-import FadeLoader from "react-spinners/FadeLoader";
+import { FadeLoader } from "react-spinners";
 
 function LoadingScreen({ loading: isLoading, message }) {
   const portalRef = React.useRef(null);

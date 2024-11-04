@@ -1,25 +1,27 @@
 import React, { Component } from "react"
-import { withRouter } from "react-router-dom"
+import { useNavigate, useLocation, useParams } from "react-router-dom"
 import Footer from "./Footer"
 // Layout Related Components
 import Header from "./Header"
 import Sidebar from "./Sidebar"
 
-class Layout extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
+function Layout(props) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
+
+  const [isMobile, setIsMobile] = React.useState(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+
+  const toggleMenuCallback = () => {
+    if (props.leftSideBarType === "default") {
+      props.changeSidebarType("condensed", isMobile)
+    } else if (props.leftSideBarType === "condensed") {
+      props.changeSidebarType("default", isMobile)
     }
-    this.toggleMenuCallback = this.toggleMenuCallback.bind(this)
   }
 
-  capitalizeFirstLetter = string => {
-    return string.charAt(1).toUpperCase() + string.slice(2)
-  }
-
-  componentDidMount() {
-    if (this.props.isPreloader === true) {
+  React.useEffect(() => {
+    if (props.isPreloader === true) {
       document.getElementById("preloader").style.display = "block"
       document.getElementById("status").style.display = "block"
 
@@ -34,64 +36,60 @@ class Layout extends Component {
 
     // Scroll Top to 0
     window.scrollTo(0, 0)
-    // let currentage = this.capitalizeFirstLetter(this.props.location.pathname)
+    // let currentage = capitalizeFirstLetter(props.location.pathname)
 
     // document.title =
     //   currentage + " | MyArchery"
-    if (this.props.leftSideBarTheme) {
-      this.props.changeSidebarTheme(this.props.leftSideBarTheme)
+    if (props.leftSideBarTheme) {
+      props.changeSidebarTheme(props.leftSideBarTheme)
     }
-    if (this.props.leftSideBarThemeImage) {
-      this.props.changeSidebarThemeImage(this.props.leftSideBarThemeImage)
-    }
-
-    if (this.props.layoutWidth) {
-      this.props.changeLayoutWidth(this.props.layoutWidth)
+    if (props.leftSideBarThemeImage) {
+      props.changeSidebarThemeImage(props.leftSideBarThemeImage)
     }
 
-    if (this.props.leftSideBarType) {
-      this.props.changeSidebarType(this.props.leftSideBarType)
+    if (props.layoutWidth) {
+      props.changeLayoutWidth(props.layoutWidth)
     }
-    if (this.props.topbarTheme) {
-      this.props.changeTopbarTheme(this.props.topbarTheme)
+
+    if (props.leftSideBarType) {
+      props.changeSidebarType(props.leftSideBarType)
     }
+    if (props.topbarTheme) {
+      props.changeTopbarTheme(props.topbarTheme)
+    }
+  }, [props]);
+
+  const capitalizeFirstLetter = string => {
+    return string.charAt(1).toUpperCase() + string.slice(2)
   }
-  toggleMenuCallback = () => {
-    if (this.props.leftSideBarType === "default") {
-      this.props.changeSidebarType("condensed", this.state.isMobile)
-    } else if (this.props.leftSideBarType === "condensed") {
-      this.props.changeSidebarType("default", this.state.isMobile)
-    }
-  }
-  render() {
-    return (
-      <React.Fragment>
-        <div id="preloader">
-          <div id="status">
-            <div className="spinner-chase">
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-              <div className="chase-dot" />
-            </div>
+
+  return (
+    <React.Fragment>
+      <div id="preloader">
+        <div id="status">
+          <div className="spinner-chase">
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
+            <div className="chase-dot" />
           </div>
         </div>
+      </div>
 
-        <div id="layout-wrapper">
-          <Header toggleMenuCallback={this.toggleMenuCallback} />
-          <Sidebar
-            theme={this.props.leftSideBarTheme}
-            type={this.props.leftSideBarType}
-            isMobile={this.state.isMobile}
-          />
-          <div className="main-content">{this.props.children}</div>
-          <Footer />
-        </div>
-      </React.Fragment>
-    )
-  }
+      <div id="layout-wrapper">
+        <Header toggleMenuCallback={toggleMenuCallback} />
+        <Sidebar
+          theme={props.leftSideBarTheme}
+          type={props.leftSideBarType}
+          isMobile={isMobile}
+        />
+        <div className="main-content">{props.children}</div>
+        <Footer />
+      </div>
+    </React.Fragment>
+  )
 }
 
-export default (withRouter(Layout))
+export default Layout;

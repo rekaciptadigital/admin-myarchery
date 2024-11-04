@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useParams, useLocation, useHistory, Link } from "react-router-dom";
+import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import queryString from "query-string";
 import { useCategoriesElimination } from "./hooks/event-categories-elimination";
@@ -13,7 +13,7 @@ function StepManageElimination() {
   const eventId = parseInt(event_id);
   const location = useLocation();
   const { menu, teamCategoryId } = queryString.parse(location.search);
-  const history = useHistory();
+  const history = useNavigate();
 
   const { data: categories, groupNames } = useCategoriesElimination(eventId);
   const tabsList = makeTeamCategoriesFilters(groupNames);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as AuthenticationStore from "store/slice/authentication";
 import { AdminService } from "services";
@@ -20,7 +20,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import user1 from "../../assets/images/users/avatar-man.png";
 
 const ProfileMenu = (props) => {
-  const { push } = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [username, setUsername] = useState("Admin");
   const [menu, setMenu] = useState(false);
@@ -28,7 +28,7 @@ const ProfileMenu = (props) => {
 
   const handleShowConfirmLogout = () => setConfirmLogout(true);
   const handleCancelLogout = () => setConfirmLogout(false);
-  const handleLogout = () => push("/logout");
+  const handleLogout = () => navigate("/logout");
 
   useEffect(() => {
     const getUser = async () => {
@@ -70,7 +70,7 @@ const ProfileMenu = (props) => {
             <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger" />
             <span>{props.t("Logout")}</span>
           </DropdownItem>
-        </DropdownMenu>
+          </DropdownMenu>
       </Dropdown>
 
       <SweetAlert

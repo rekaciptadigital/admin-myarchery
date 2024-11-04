@@ -6,17 +6,20 @@ import SimpleBar from "simplebar-react"
 
 // MetisMenu
 import MetisMenu from "metismenujs"
-import { withRouter } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
 
 //i18n
 import { withTranslation } from "react-i18next"
 
 const SidebarContent = props => {
   const ref = useRef()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
+  
   // Use ComponentDidMount and ComponentDidUpdate method symultaniously
   useEffect(() => {
-    const pathName = props.location.pathname
+    const pathName = location.pathname
 
     const initMenu = () => {
       new MetisMenu("#side-menu")
@@ -34,7 +37,7 @@ const SidebarContent = props => {
       }
     }
     initMenu()
-  }, [props.location.pathname])
+  }, [location.pathname])
 
   useEffect(() => {
     ref.current.recalculate()
@@ -722,4 +725,4 @@ SidebarContent.propTypes = {
   t: PropTypes.any,
 }
 
-export default withRouter(withTranslation()(SidebarContent))
+export default withTranslation()(SidebarContent)

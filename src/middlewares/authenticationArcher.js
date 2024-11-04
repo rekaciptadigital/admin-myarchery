@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import { getAuthenticationStore } from "store/slice/authentication";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -31,11 +31,12 @@ const AuthenticationArcherMiddleware = ({
       render={(props) => {
         if (isAuthProtected && !isLoggedIn) {
           return (
-            <Redirect
+            <Navigate
               to={{
                 pathname: "/archer/login",
                 state: { from: props.location },
               }}
+              replace
             />
           );
         }
@@ -56,5 +57,13 @@ AuthenticationArcherMiddleware.propTypes = {
   location: PropTypes.object,
   layout: PropTypes.any,
 };
+
+function Component() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
+  
+  return <div>...</div>;
+}
 
 export default AuthenticationArcherMiddleware;

@@ -190,4 +190,21 @@ const useClassificationFormData = () => {
   };
 };
 
+export function useFetchClassification() {
+  const [data, setData] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  
+  React.useEffect(() => {
+    // Effect logic here
+  }, []);
+
+  return { data, loading };
+}
+
+// Use custom hook in component
+function Component() {
+  const classification = useFetchClassification();
+  // ...
+}
+
 export { useClassification, useClassificationFormData };

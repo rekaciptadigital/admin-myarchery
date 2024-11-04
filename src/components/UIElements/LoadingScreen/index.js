@@ -1,13 +1,14 @@
 import React from 'react'
-import FadeLoader from "react-spinners/FadeLoader"
+// src/components/UIElements/LoadingScreen/index.js
+import { FadeLoader } from 'react-spinners';
 import "./style.css"
 
 function LoadingScreen({loading}) {
-    return (
-        <div className={loading ? "loading" : ""}>
-            <FadeLoader color="white" loading={loading ? true : false} />
-        </div>
-    )
+  return (
+    <div className="loading-screen">
+      <FadeLoader color="#123abc" loading={loading} />
+    </div>
+  );
 }
 
-export default LoadingScreen
+export default LoadingScreen;
